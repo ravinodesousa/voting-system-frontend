@@ -4,6 +4,8 @@ import {
   CCard,
   CCardBody,
   CCardHeader,
+  CCardText,
+  CCardTitle,
   CCol,
   CForm,
   CFormInput,
@@ -36,6 +38,7 @@ import {
 } from '../../axios'
 import { cilCheck, cilPencil, cilPlus, cilTrash } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
+import { CChart } from '@coreui/react-chartjs'
 
 const ElectionResults = () => {
   const [electionResults, setElectionResults] = useState([])
@@ -103,37 +106,61 @@ const ElectionResults = () => {
             <strong>Election Result List</strong>
           </CCardHeader>
           <CCardBody>
-            {' '}
-            <CTable bordered>
-              <CTableHead>
-                <CTableRow>
-                  <CTableHeaderCell scope="col">#</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Name</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Start Date</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">End Date</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Status</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Won By</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Total Votes</CTableHeaderCell>
-                </CTableRow>
-              </CTableHead>
-              <CTableBody>
-                {electionResults.map((result) => {
-                  return (
-                    <CTableRow>
-                      <CTableHeaderCell scope="row">{result?.id}</CTableHeaderCell>
-                      <CTableDataCell>{result?.name}</CTableDataCell>
-                      <CTableDataCell>{result?.startDate}</CTableDataCell>
-                      <CTableDataCell>{result?.endDate}</CTableDataCell>
+            {electionResults.map((result) => {
+              return (
+                <CCard className="my-4">
+                  <CCardBody>
+                    <CTable bordered>
+                      <CTableHead>
+                        <CTableRow>
+                          <CTableHeaderCell scope="col">#</CTableHeaderCell>
+                          <CTableHeaderCell scope="col">Name</CTableHeaderCell>
+                          <CTableHeaderCell scope="col">Start Date</CTableHeaderCell>
+                          <CTableHeaderCell scope="col">End Date</CTableHeaderCell>
+                          <CTableHeaderCell scope="col">Status</CTableHeaderCell>
+                          <CTableHeaderCell scope="col">Won By</CTableHeaderCell>
+                          <CTableHeaderCell scope="col">Total Votes</CTableHeaderCell>
+                        </CTableRow>
+                      </CTableHead>
+                      <CTableBody>
+                        <CTableRow>
+                          <CTableHeaderCell scope="row">{result?.id}</CTableHeaderCell>
+                          <CTableDataCell> {result?.name}</CTableDataCell>
+                          <CTableDataCell>{result?.startDate}</CTableDataCell>
+                          <CTableDataCell>{result?.endDate}</CTableDataCell>
 
-                      <CTableDataCell>{result?.status}</CTableDataCell>
+                          <CTableDataCell>{result?.status}</CTableDataCell>
 
-                      <CTableDataCell>{result?.results?.candidate?.name ?? ''}</CTableDataCell>
-                      <CTableDataCell>{result?.results?.totalVotes ?? ''}</CTableDataCell>
-                    </CTableRow>
-                  )
-                })}
-              </CTableBody>
-            </CTable>
+                          <CTableDataCell>{result?.results?.candidate?.name ?? ''}</CTableDataCell>
+                          <CTableDataCell>{result?.results?.totalVotes ?? ''}</CTableDataCell>
+                        </CTableRow>
+                      </CTableBody>
+                    </CTable>
+
+                    {result?.votes?.length > 0 && (
+                      <CChart
+                        type="bar"
+                        data={{
+                          labels: result?.votes?.map((candidate) => {
+                            return `${candidate?.firstName} ${candidate?.lastName}`
+                          }),
+                          datasets: [
+                            {
+                              label: 'Total Votes',
+                              backgroundColor: '#f87979',
+                              data: result?.votes?.map((candidate) => {
+                                return candidate?.totalVotes
+                              }),
+                            },
+                          ],
+                        }}
+                        labels="candidates"
+                      />
+                    )}
+                  </CCardBody>
+                </CCard>
+              )
+            })}
           </CCardBody>
         </CCard>
       </CCol>
