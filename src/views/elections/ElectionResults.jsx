@@ -39,6 +39,7 @@ import {
 import { cilCheck, cilPencil, cilPlus, cilTrash } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { CChart } from '@coreui/react-chartjs'
+import { convertToLocal } from '../../utils'
 
 const ElectionResults = () => {
   const [electionResults, setElectionResults] = useState([])
@@ -126,8 +127,8 @@ const ElectionResults = () => {
                         <CTableRow>
                           <CTableHeaderCell scope="row">{result?.id}</CTableHeaderCell>
                           <CTableDataCell> {result?.name}</CTableDataCell>
-                          <CTableDataCell>{result?.startDate}</CTableDataCell>
-                          <CTableDataCell>{result?.endDate}</CTableDataCell>
+                          <CTableDataCell>{convertToLocal(result?.startDate)}</CTableDataCell>
+                          <CTableDataCell>{convertToLocal(result?.endDate)}</CTableDataCell>
 
                           <CTableDataCell>{result?.status}</CTableDataCell>
 

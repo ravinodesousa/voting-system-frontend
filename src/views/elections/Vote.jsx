@@ -39,6 +39,7 @@ import {
 } from '../../axios'
 import { cilCheck, cilPencil, cilPlus, cilTrash } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
+import { convertToLocal } from '../../utils'
 
 const Vote = () => {
   const [elections, setElections] = useState([])
@@ -118,8 +119,8 @@ const Vote = () => {
                     <CTableRow>
                       <CTableHeaderCell scope="row">{election?.id}</CTableHeaderCell>
                       <CTableDataCell>{election?.name}</CTableDataCell>
-                      <CTableDataCell>{election?.startDate}</CTableDataCell>
-                      <CTableDataCell>{election?.endDate}</CTableDataCell>
+                      <CTableDataCell>{convertToLocal(election?.startDate)}</CTableDataCell>
+                      <CTableDataCell>{convertToLocal(election?.endDate)}</CTableDataCell>
 
                       <CTableDataCell>{election?.status}</CTableDataCell>
                       <CTableDataCell>
