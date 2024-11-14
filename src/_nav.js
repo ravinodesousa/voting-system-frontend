@@ -77,12 +77,6 @@ if (userType == 'ADMIN') {
       to: '/vote',
       icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
     },
-    {
-      component: CNavItem,
-      name: 'Election Results',
-      to: '/election-results',
-      icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
-    },
   ]
 }
 

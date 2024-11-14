@@ -33,7 +33,16 @@ import {
   fetchCandidates,
   fetchParties,
 } from '../../axios'
-import { cilCheck, cilPencil, cilPlus, cilTrash } from '@coreui/icons'
+import {
+  cilCheck,
+  cilDelete,
+  cilPencil,
+  cilPlus,
+  cilTrash,
+  cilUserX,
+  cilX,
+  cilXCircle,
+} from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 
 const Candidates = () => {
@@ -111,7 +120,6 @@ const Candidates = () => {
                             ACCEPT
                           </CButton>
                         )}
-
                         {candidate?.status == 'PENDING' && (
                           <CButton
                             color={'danger'}
@@ -121,6 +129,29 @@ const Candidates = () => {
                           >
                             <CIcon icon={cilTrash} className="me-2" />
                             REJECT
+                          </CButton>
+                        )}
+
+                        {(candidate?.status == 'REJECTED' || candidate?.status == 'BLOCKED') && (
+                          <CButton
+                            color={'success'}
+                            onClick={() => {
+                              statusChangeHandler(candidate?.id, 'ACCEPTED')
+                            }}
+                          >
+                            <CIcon icon={cilCheck} className="me-2" />
+                            {candidate?.status == 'BLOCKED' ? 'UNBLOCK' : 'APPROVE'}
+                          </CButton>
+                        )}
+                        {candidate?.status == 'ACCEPTED' && (
+                          <CButton
+                            color={'danger'}
+                            onClick={() => {
+                              statusChangeHandler(candidate?.id, 'BLOCKED')
+                            }}
+                          >
+                            <CIcon icon={cilUserX} className="me-2" />
+                            BLOCK
                           </CButton>
                         )}
                       </CTableDataCell>

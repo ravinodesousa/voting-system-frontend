@@ -24,7 +24,11 @@ const Login = () => {
 
   useEffect(() => {
     if (localStorage.getItem('jwtToken') !== null) {
-      return navigate('/election-results')
+      if (localStorage.getItem('userType') == 'ADMIN') {
+        return navigate('/election-results')
+      } else {
+        return navigate('/vote')
+      }
     }
   }, [navigate])
 

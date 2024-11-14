@@ -32,6 +32,10 @@ const fetchCandidates = () => {
   return axios(`${BASEURL}/user/candidates`, config)
 }
 
+const fetchActiveCandidates = () => {
+  return axios(`${BASEURL}/user/candidates/active`, config)
+}
+
 const createElection = (data) => {
   return axios.post(`${BASEURL}/election/create`, data, config)
 }
@@ -78,6 +82,7 @@ export {
   upload,
   fetchVoters,
   fetchCandidates,
+  fetchActiveCandidates,
   createElection,
   editElection,
   electionList,

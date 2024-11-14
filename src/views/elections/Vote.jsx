@@ -33,6 +33,7 @@ import {
   editPartyStatus,
   electionList,
   electionListWithVotedFlag,
+  fetchActiveCandidates,
   fetchCandidates,
   fetchParties,
   voteHandler,
@@ -62,7 +63,7 @@ const Vote = () => {
       setElections(res?.data ?? [])
     })
 
-    fetchCandidates().then((res) => {
+    fetchActiveCandidates().then((res) => {
       console.log('candidates: ', res?.data)
       setCandidates(res?.data ?? [])
     })

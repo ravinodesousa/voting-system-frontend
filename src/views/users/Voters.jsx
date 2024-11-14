@@ -34,7 +34,7 @@ import {
   fetchParties,
   fetchVoters,
 } from '../../axios'
-import { cilCheck, cilPencil, cilPlus, cilTrash } from '@coreui/icons'
+import { cilCheck, cilPencil, cilPlus, cilTrash, cilUserX } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 
 const Voters = () => {
@@ -123,6 +123,29 @@ const Voters = () => {
                           >
                             <CIcon icon={cilTrash} className="me-2" />
                             REJECT
+                          </CButton>
+                        )}
+
+                        {(candidate?.status == 'REJECTED' || candidate?.status == 'BLOCKED') && (
+                          <CButton
+                            color={'success'}
+                            onClick={() => {
+                              statusChangeHandler(candidate?.id, 'ACCEPTED')
+                            }}
+                          >
+                            <CIcon icon={cilCheck} className="me-2" />
+                            {candidate?.status == 'BLOCKED' ? 'UNBLOCK' : 'APPROVE'}
+                          </CButton>
+                        )}
+                        {candidate?.status == 'ACCEPTED' && (
+                          <CButton
+                            color={'danger'}
+                            onClick={() => {
+                              statusChangeHandler(candidate?.id, 'BLOCKED')
+                            }}
+                          >
+                            <CIcon icon={cilUserX} className="me-2" />
+                            BLOCK
                           </CButton>
                         )}
                       </CTableDataCell>

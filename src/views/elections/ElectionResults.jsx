@@ -129,11 +129,16 @@ const ElectionResults = () => {
                           <CTableDataCell> {result?.name}</CTableDataCell>
                           <CTableDataCell>{convertToLocal(result?.startDate)}</CTableDataCell>
                           <CTableDataCell>{convertToLocal(result?.endDate)}</CTableDataCell>
-
                           <CTableDataCell>{result?.status}</CTableDataCell>
 
-                          <CTableDataCell>{result?.results?.candidate?.name ?? ''}</CTableDataCell>
-                          <CTableDataCell>{result?.results?.totalVotes ?? ''}</CTableDataCell>
+                          <CTableDataCell>
+                            {result?.results?.candidateId != null
+                              ? result?.results?.candidate?.firstName +
+                                ' ' +
+                                result?.results?.candidate?.lastName
+                              : '-'}
+                          </CTableDataCell>
+                          <CTableDataCell>{result?.results?.totalVotes ?? '-'}</CTableDataCell>
                         </CTableRow>
                       </CTableBody>
                     </CTable>
